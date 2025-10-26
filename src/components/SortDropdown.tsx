@@ -20,10 +20,10 @@ interface SortDropdownProps {
  */
 export const SortDropdown = ({ value, onChange }: SortDropdownProps) => {
   return (
-    <div className="flex items-center space-x-3">
-      <span className="text-sm font-medium">Sort by:</span>
+    <div className="flex items-center sm:space-x-3 flex-wrap sm:flex-nowrap w-full sm:w-fit">
+      <span className="text-sm font-medium w-full sm:w-fit mb-1 sm:mb-0 text-(--primary)">Sort by:</span>
       <Select value={value} onValueChange={onChange}>
-        <SelectTrigger className="w-[180px] bg(--input) border-(--border)">
+        <SelectTrigger className="w-full sm:w-[180px] bg(--input) border-(--border)">
           <SelectValue />
         </SelectTrigger>
         <SelectContent className="bg-(--popover) border-(--border)">

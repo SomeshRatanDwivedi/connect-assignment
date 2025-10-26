@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Slider } from "@/components/ui/slider";
+import { Slider } from "radix-ui";
 import { cn } from "@/lib/utils";
 
 interface PriceRangeSliderProps {
@@ -56,15 +56,15 @@ export const PriceRangeSlider = ({
   return (
     <div className={cn("space-y-4", className)}>
       <div className="flex items-center justify-between text-sm">
-        <span className="">Price Range</span>
+        <span>Price Range</span>
         {enabled && (
-          <span className="text(--foreground) font-medium">
+          <span className="text-foreground font-medium">
             ${localValue[0]} - ${localValue[1]}
           </span>
         )}
       </div>
 
-      <Slider
+      <Slider.Root
         min={min}
         max={max}
         step={1}
@@ -72,13 +72,29 @@ export const PriceRangeSlider = ({
         onValueChange={handleValueChange}
         onValueCommit={handleValueCommit}
         disabled={!enabled}
-        className={cn(!enabled && "opacity-40 cursor-not-allowed")}
-      />
+        className={cn(
+          "relative flex w-full h-3 select-none touch-none items-center",
+          !enabled && "opacity-40 cursor-not-allowed"
+        )}
+      >
+        <Slider.Track className="relative h-[3px] grow rounded-full bg-white">
+          <Slider.Range className="absolute h-full rounded-full bg-(--primary)" />
+        </Slider.Track>
+        <Slider.Thumb
+          className="block size-5 rounded-[10px] bg-(--primary) shadow-[0_2px_10px] shadow-blackA4 hover:bg-violet3 focus:shadow-[0_0_0_5px] focus:shadow-blackA5 focus:outline-none"
+          aria-label="Volume"
+        />
+        <Slider.Thumb
+          className="block size-5 rounded-[10px] bg-(--primary) shadow-[0_2px_10px] shadow-blackA4 hover:bg-violet3 focus:shadow-[0_0_0_5px] focus:shadow-blackA5 focus:outline-none"
+          aria-label="Volume"
+        />
+      </Slider.Root>
 
-      <div className="flex items-center justify-between text-xs ">
+      <div className="flex items-center justify-between text-xs">
         <span>${min}</span>
         <span>${max}</span>
       </div>
     </div>
+
   );
 };

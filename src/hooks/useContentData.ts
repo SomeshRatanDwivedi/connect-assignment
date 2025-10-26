@@ -1,6 +1,7 @@
 import { PricingOption, SortCriteria } from "@/constants";
 import type { ContentItem } from "@/types/content";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { PricingEnumMapping } from './../constants/index';
 
 const API_URL = "https://closet-recruiting-api.azurewebsites.net/api/data";
 const ITEMS_PER_PAGE = 12;
@@ -28,22 +29,23 @@ const filterContent = (
 ): ContentItem[] => {
   return items.filter((item) => {
     // Apply pricing filter
-    if (pricingFilters.length > 0 && !pricingFilters.includes(item.pricingOption)) {
+    const priceFilterEnum = pricingFilters.map(ele => PricingEnumMapping[ele]);
+    if (pricingFilters.length > 0 && !priceFilterEnum.includes(+item.pricingOption)) {
       return false;
     }
 
-    // Apply keyword search (search in both userName and title)
+    // Apply keyword search for title
     if (keyword) {
       const searchTerm = keyword.toLowerCase();
-      const matchesUserName = item.userName.toLowerCase().includes(searchTerm);
       const matchesTitle = item.title.toLowerCase().includes(searchTerm);
-      if (!matchesUserName && !matchesTitle) {
+      const matchCreator = item.creator.toLowerCase().includes(searchTerm);
+      if (!matchesTitle && !matchCreator) {
         return false;
       }
     }
 
     // Apply price range filter (only for paid items)
-    if (item.pricingOption === PricingOption.PAID && item.price !== undefined) {
+    if (+item.pricingOption === PricingEnumMapping[PricingOption.PAID] && item.price !== undefined) {
       if (item.price < priceRange.min || item.price > priceRange.max) {
         return false;
       }

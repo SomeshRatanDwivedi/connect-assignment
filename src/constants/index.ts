@@ -15,3 +15,10 @@ export const SortCriteria= {
   HIGHER_PRICE : "higherPrice",
   LOWER_PRICE :"lowerPrice",
 }
+
+export const PricingEnumMapping:Record<string, number>= {
+  paid: 0,
+  free: 1,
+  viewOnly:2
+  
+}

@@ -7,7 +7,7 @@
 export interface ContentItem {
   id: string;
   title: string;
-  userName: string;
+  creator: string;
   imagePath: string;
   pricingOption: "paid" | "free" | "viewOny";
   price?: number;

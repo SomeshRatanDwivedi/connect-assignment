@@ -1,6 +1,7 @@
 import { PricingOption } from "@/constants";
 import { cn } from "@/lib/utils";
 import type { ContentItem } from "@/types/content";
+import { PricingEnumMapping } from './../constants/index';
 
 /**
  * Product card props
@@ -17,29 +18,29 @@ interface ProductCardProps {
  * Displays a product with image, title, creator, and pricing information
  */
 export const ProductCard = ({ item, className }: ProductCardProps) => {
-  const { title, userName, imagePath, pricingOption, price } = item;
+  const { title, imagePath, pricingOption, price, creator, id } = item;
   /**
    * Renders the pricing badge based on pricing type
    */
   const renderPricing = () => {
-    if (pricingOption === PricingOption.VIEW_ONLY) {
+    if (+pricingOption === PricingEnumMapping[PricingOption.VIEW_ONLY]) {
       return (
-        <span className="text-sm font-medium text(--foreground)">
+        <span className="text-sm font-medium text-(--foreground)">
           View Only
         </span>
       );
     }
 
-    if (pricingOption === PricingOption.FREE) {
+    if (+pricingOption === PricingEnumMapping[PricingOption.FREE]) {
       return (
-        <span className="text-sm font-bold text(--foreground)">
+        <span className="text-sm font-bold text-(--foreground)">
           FREE
         </span>
       );
     }
 
     return (
-      <span className="text-lg font-semibold text(--foreground)">
+      <span className="text-lg font-semibold text-(--foreground)">
         ${price?.toFixed(2)}
       </span>
     );
@@ -48,8 +49,8 @@ export const ProductCard = ({ item, className }: ProductCardProps) => {
   return (
     <div
       className={cn(
-        "group relative overflow-hidden rounded-sm bg-(--card) border border-(--border)",
-        "transition-all duration-300 hover:border-primary hover:shadow-lg hover:shadow-primary/20",
+        "group relative overflow-hidden rounded-sm bg-(--card)",
+        "transition-all duration-300 hover:border-(--primary) hover:shadow-lg",
         className
       )}
     >
@@ -63,17 +64,18 @@ export const ProductCard = ({ item, className }: ProductCardProps) => {
       </div>
 
       {/* Product Info Overlay */}
-      <div className="absolute bottom-0 left-0 right-0 bg(--background)/95 backdrop-blur-sm p-4 border-t border-(--border)">
-        <div className="flex items-end justify-between">
+      <div className="absolute bottom-0 left-0 right-0 bg-(--background)/95 backdrop-blur-sm p-4">
+        <div className="flex justify-between">
           {/* Title and Creator */}
           <div className="flex-1 min-w-0">
-            <h3 className="text-sm font-medium text(--foreground) truncate">
+            <h3 className="text-sm font-medium text-(--foreground) truncate">
               {title}
             </h3>
-            <p className="text-xs  truncate">
-              {userName}
-            </p>
+            <h3 className="text-sm font-medium text-(--secondary) truncate">
+              {creator}
+            </h3>
           </div>
+          <h3>{id}</h3>
 
           {/* Pricing */}
           <div className="ml-3 shrink-0">

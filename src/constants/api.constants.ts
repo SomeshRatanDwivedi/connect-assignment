@@ -1,0 +1,1 @@
+export const CLOSET_API_BASE_URL = import.meta.env.VITE_CLOSET_API_BASE_URL

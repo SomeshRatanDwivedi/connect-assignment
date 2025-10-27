@@ -2,20 +2,21 @@ import { PricingOption, SortCriteria } from "@/constants";
 import type { ContentItem } from "@/types/content";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { PricingEnumMapping } from './../constants/index';
+import { getAllProducts } from "@/api/products";
 
-const API_URL = "https://closet-recruiting-api.azurewebsites.net/api/data";
 const ITEMS_PER_PAGE = 12;
 
 /**
  * Fetch content data from API
  */
 const fetchContentData = async (): Promise<ContentItem[]> => {
-  const response = await fetch(API_URL);
-  if (!response.ok) {
-    throw new Error("Failed to fetch content data");
+  try {
+    const res = await getAllProducts();
+    return res.data;
+  } catch (err) {
+    console.error("Error in getting content data", err);
+    throw err;
   }
-  const data = await response.json();
-  return data;
 };
 
 /**

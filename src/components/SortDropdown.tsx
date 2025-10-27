@@ -5,7 +5,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { SortCriteria } from "@/constants";
+import {SORTING_CRITERIA_OPTIONS } from "@/constants";
 
 interface SortDropdownProps {
   /** Current sort criteria */
@@ -27,9 +27,9 @@ export const SortDropdown = ({ value, onChange }: SortDropdownProps) => {
           <SelectValue />
         </SelectTrigger>
         <SelectContent className="bg-(--popover) border-(--border)">
-          <SelectItem value={SortCriteria.ITEM_NAME}>Item Name</SelectItem>
-          <SelectItem value={SortCriteria.HIGHER_PRICE}>Higher Price</SelectItem>
-          <SelectItem value={SortCriteria.LOWER_PRICE}>Lower Price</SelectItem>
+          {
+            SORTING_CRITERIA_OPTIONS.map(ele => (<SelectItem id={ele.id} value={ele.value}>{ele.label}</SelectItem>))
+          }
         </SelectContent>
       </Select>
     </div>

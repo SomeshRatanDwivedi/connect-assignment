@@ -1,6 +1,6 @@
-import { closetApi } from "../instance"
+import { connectApi } from "../instance"
 
 export const getAllProducts = async () => {
-  const res = await closetApi.get("data");
-  return res.data;
+  const res = await connectApi.get("data");
+  return res;
 }

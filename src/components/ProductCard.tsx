@@ -18,7 +18,7 @@ interface ProductCardProps {
  * Displays a product with image, title, creator, and pricing information
  */
 export const ProductCard = ({ item, className }: ProductCardProps) => {
-  const { title, imagePath, pricingOption, price, creator, id } = item;
+  const { title, imagePath, pricingOption, price, creator} = item;
   /**
    * Renders the pricing badge based on pricing type
    */
@@ -75,8 +75,6 @@ export const ProductCard = ({ item, className }: ProductCardProps) => {
               {creator}
             </h3>
           </div>
-          <h3>{id}</h3>
-
           {/* Pricing */}
           <div className="ml-3 shrink-0">
             {renderPricing()}
